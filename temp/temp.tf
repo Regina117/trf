@@ -29,10 +29,10 @@ resources {
   memory = 4
 }
 boot_disk {
-  disk_id = yandex_compute_disk.boot-disk.id
+  disk_id = "yandex_compute_disk.boot-disk.id"
 }
 network_interface {
-  subnet_id = yandex_vpc_subnet.subnet-1.id
+  subnet_id = "yandex_vpc_subnet.subnet-1.id"
   nat = true
 }
 metadata = {
@@ -46,5 +46,5 @@ resource "yandex_vpc_subnet" "subnet-1" {
   name = "subnet1"
   zone = "ru-central1-a"
   v4_cidr_blocks = ["192.168.10.0/24"]
-  network_id = yandex_vpc_network.network-1.id
+  network_id = "yandex_vpc_network.network-1.id"
 }
