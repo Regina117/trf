@@ -24,7 +24,7 @@ resource "yandex_vpc_subnet" "default" {
   zone           = "ru-central1-d"
   network_id     = yandex_vpc_network.default.id
   folder_id      = "b1g877q94b2773okudu0"
-  v4_cidr_blocks = ["10.130.0.0/24"]
+  v4_cidr_blocks = ["10.0.0.0/24"]
 }
 
 resource "yandex_storage_bucket" "repo_bucket" {
