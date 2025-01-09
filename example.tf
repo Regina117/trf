@@ -14,19 +14,23 @@ provider "yandex" {
   zone      = "ru-central1-c"
 }
 
-resource "yandex_vpc_network" "default" {
+resource "yandex_vpc_network" "default" {  
   name = "default-network"
+  folder_id = "b1g877q94b2773okudu0"
 }
+
 resource "yandex_vpc_subnet" "default" {
   name           = "default-subnet"
   zone           = "ru-central1-c"
   network_id     = yandex_vpc_network.default.id
+  folder_id      = "b1g877q94b2773okudu0"
   v4_cidr_blocks = ["10.0.0.0/24"]
 }
 
 resource "yandex_storage_bucket" "repo_bucket" {
   bucket = "java-app-repo"
-
+  name     = "repo-bucket"
+  folder_id = "b1g877q94b2773okudu0"
   acl = "private"
 
   lifecycle_rule {
