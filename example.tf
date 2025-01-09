@@ -83,9 +83,12 @@ packages:
   - yc
 runcmd:
   - git clone https://github.com/geoserver/geoserver.git /app
+  - echo "Git clone finished" >> /var/log/build.log
   - cd /app/src
-  - mvn clean package -DskipTests
-  - /bin/bash -c "yc storage cp /app/src/web/app/target/geoserver.war ys://java-app-repo/geoserver.war"
+  - mvn clean package -DskipTests >> /var/log/build.log 2>&1
+  - echo "Maven build finished" >> /var/log/build.log
+  - /bin/bash -c "yc storage cp /app/src/web/app/target/geoserver.war ys://java-app-repo/geoserver.war" >> /var/log/build.log 2>&1
+  - echo "File uploaded to storage" >> /var/log/build.log
 EOF
   }
 }
@@ -130,9 +133,21 @@ packages:
   - tomcat9
   - yc
 runcmd:
-  - /bin/bash -c "yc storage cp ys://java-app-repo/geoserver.war /tmp/geoserver.war"
+  - echo "Start downloading WAR file" >> /var/log/prod.log
+  - /bin/bash -c "yc storage cp ys://java-app-repo/geoserver.war /tmp/geoserver.war" >> /var/log/prod.log 2>&1
+  - echo "File downloaded" >> /var/log/prod.log
   - cp /tmp/geoserver.war /var/lib/tomcat9/webapps/geoserver.war
-  - systemctl restart tomcat9
+  - echo "WAR file copied to Tomcat" >> /var/log/prod.log
+  - systemctl restart tomcat9 >> /var/log/prod.log 2>&1 
+  - echo "Tomcat restarted" >> /var/log/prod.log
 EOF
   }
+}
+
+output "build_instance_ip" {
+  value = yandex_compute_instance.build.network_interface.0.ip_address
+}
+
+output "prod_instance_ip" {
+  value = yandex_compute_instance.prod.network_interface.0.ip_address
 }
