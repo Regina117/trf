@@ -50,6 +50,6 @@ resource "yandex_vpc_network" "network_terraform" {
 resource "yandex_vpc_subnet" "default" {
   name           = "sub_terraform"
   zone           = "ru-central1-d"
-  network_id     = "default-ru-central1-d"
+  network_id     = "yandex_vpc_network.network_terraform.id"
   v4_cidr_blocks = ["10.0.0.0/24"]
 }
