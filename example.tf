@@ -87,7 +87,7 @@ runcmd:
   - cd /app/src
   - mvn clean package -DskipTests >> /var/log/build.log 2>&1
   - echo "Maven build finished" >> /var/log/build.log
-  - /bin/bash -c "yc storage cp /app/src/web/app/target/geoserver.war ys://java-app-repo/geoserver.war" >> /var/log/build.log 2>&1
+  - /bin/bash -c "yc storage object upload /app/src/web/app/target/geoserver.war --bucket java-app-repo --name geoserver.war" >> /var/log/build.log 2>&1
   - echo "File uploaded to storage" >> /var/log/build.log
 EOF
   }
