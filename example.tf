@@ -11,7 +11,7 @@ provider "yandex" {
   token     = "y0__wgBENPV_IUCGMHdEyCis4b-EZr_VyNwznnybCcPlXNywg3E7sZf"
   cloud_id  = "b1gmclt461srvopvr7i7"
   folder_id = "b1g877q94b2773okudu0"
-  zone      = "ru-central1-c"
+  zone      = "ru-central1-d"
 }
 
 resource "yandex_vpc_network" "default" {  
@@ -21,7 +21,7 @@ resource "yandex_vpc_network" "default" {
 
 resource "yandex_vpc_subnet" "default" {
   name           = "default-subnet"
-  zone           = "ru-central1-c"
+  zone           = "ru-central1-d"
   network_id     = yandex_vpc_network.default.id
   folder_id      = "b1g877q94b2773okudu0"
   v4_cidr_blocks = ["10.0.0.0/24"]
@@ -44,7 +44,7 @@ resource "yandex_storage_bucket" "repo_bucket" {
 resource "yandex_compute_instance" "build_instance" {
   name        = "build-instance"
   platform_id = "standard-v1"
-  zone        = "ru-central1-c"
+  zone        = "ru-central1-d"
 
   resources {
     cores  = 2
@@ -93,7 +93,7 @@ EOF
 resource "yandex_compute_instance" "prod_instance" {
   name        = "prod-instance"
   platform_id = "standard-v1"
-  zone        = "ru-central1-c"
+  zone        = "ru-central1-d"
 
   resources {
     cores  = 2
