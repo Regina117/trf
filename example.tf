@@ -41,8 +41,8 @@ resource "yandex_storage_bucket" "repo_bucket" {
 }
 
 # build instance
-resource "yandex_compute_instance" "build_instance" {
-  name        = "build-instance"
+resource "yandex_compute_instance" "build" {
+  name        = "build"
   platform_id = "standard-v1"
   zone        = "ru-central1-d"
 
@@ -53,7 +53,7 @@ resource "yandex_compute_instance" "build_instance" {
 
   boot_disk {
     initialize_params {
-      image_id = "fv4ocu0l6jfp4rtn77ov" 
+      image_id = "fv4j7llmkurf26fsbaq2" 
     }
   }
 
@@ -65,6 +65,7 @@ resource "yandex_compute_instance" "build_instance" {
   metadata = {
     ssh-keys = "regina:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIBb3GHLLen70A0nwelg/oTdfw0P2bRGVAtMEwbhOBwQ"
     user-data = <<EOF
+#cloud-config
 datasource:
  Ec2:
   strict_id: false
@@ -90,8 +91,8 @@ EOF
 }
 
 # prod instance
-resource "yandex_compute_instance" "prod_instance" {
-  name        = "prod-instance"
+resource "yandex_compute_instance" "prod" {
+  name        = "prod"
   platform_id = "standard-v1"
   zone        = "ru-central1-d"
 
@@ -102,7 +103,7 @@ resource "yandex_compute_instance" "prod_instance" {
 
   boot_disk {
     initialize_params {
-      image_id = "fv4ocu0l6jfp4rtn77ov" 
+      image_id = "fv4s106j4ph9svi7no0j" 
     }
   }
 
@@ -112,8 +113,9 @@ resource "yandex_compute_instance" "prod_instance" {
   }
 
   metadata = {
-    ssh-keys = "regina:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIBb3GHLLen70A0nwelg/oTdfw0P2bRGVAtMEwbhOBwQ"
+    ssh-keys = "regina:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIBb3GHLLen70A0nwelg/oTdfw0P2bRGVAtMEwbhOBwQ regina@dell-5430"
     user-data = <<EOF
+#cloud-config
 datasource:
  Ec2:
   strict_id: false
@@ -123,7 +125,7 @@ users:
   sudo: ALL=(ALL) NOPASSWD:ALL
   shell: /bin/bash
   ssh_authorized_keys:
-  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIBb3GHLLen70A0nwelg/oTdfw0P2bRGVAtMEwbhOBwQ
+  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIBb3GHLLen70A0nwelg/oTdfw0P2bRGVAtMEwbhOBwQ regina@dell-5430
 packages:
   - tomcat9
   - awscli
