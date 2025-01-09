@@ -42,12 +42,7 @@ resource "yandex_compute_instance" "vm-test1" {
   }
  
 }
- 
-resource "yandex_vpc_network" "network_terraform" {
-  name = "net_terraform"
-}
- 
-resource "yandex_vpc_subnet" "default" {
+resource "yandex_vpc_subnet" "network_terraform" {
   name           = "sub_terraform"
   zone           = "ru-central1-d"
   network_id     = "yandex_vpc_network.network_terraform.id"
