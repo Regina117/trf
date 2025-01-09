@@ -8,10 +8,10 @@ terraform {
 }
 
 provider "yandex" {
-  token     = "y0__wgBENPV_IUCGMHdEyCis4b-EZr_VyNwznnybCcPlXNywg3E7sZf"
-  cloud_id  = "b1gmclt461srvopvr7i7"
-  folder_id = "b1g877q94b2773okudu0"
-  zone      = "ru-central1-d"
+  token     = var.yandex_token
+  cloud_id  = var.yandex_cloud_id
+  folder_id = var.yandex_folder_id
+  zone      = var.yandex_zone
 }
 
 resource "yandex_compute_instance" "vm" {
@@ -62,7 +62,7 @@ variable "vm_cores" {
   default = 2
 }
 variable "vm_memory" {
-  default = 4  # в ГБ
+  default = 4  
 }
 variable "image_id" {
   default = "fd895e9j3al6len7lg24"
