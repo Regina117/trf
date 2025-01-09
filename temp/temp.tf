@@ -33,7 +33,7 @@ resource "yandex_compute_instance" "vm-test1" {
   }
  
   network_interface {
-    subnet_id = yandex_vpc_subnet.subnet_terraform.id
+    subnet_id = yandex_vpc_network.default.id
     nat       = true
   }
  
