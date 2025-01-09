@@ -43,7 +43,7 @@ resource "yandex_storage_bucket" "repo_bucket" {
 # build instance
 resource "yandex_compute_instance" "build" {
   name        = "build"
-  # platform_id = "standard-v1"
+  platform_id = "standard-v1"
   zone        = "ru-central1-d"
 
   resources {
@@ -93,7 +93,7 @@ EOF
 # prod instance
 resource "yandex_compute_instance" "prod" {
   name        = "prod"
-  # platform_id = "standard-v1"
+  platform_id = "standard-v2"
   zone        = "ru-central1-d"
 
   resources {
