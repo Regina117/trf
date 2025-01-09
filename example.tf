@@ -8,6 +8,7 @@ terraform {
 }
 
 provider "yandex" {
+  token     = "37fa521c-d9aa-4dd6-ae75-565f0f3a21be"
   zone      = "ru-central1-d"
 }
 
