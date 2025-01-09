@@ -29,7 +29,6 @@ resource "yandex_vpc_subnet" "default" {
 
 resource "yandex_storage_bucket" "repo_bucket" {
   bucket = "java-app-repo"
-  name     = "repo-bucket"
   folder_id = "b1g877q94b2773okudu0"
   acl = "private"
 
