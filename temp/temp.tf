@@ -38,7 +38,7 @@ resource "yandex_compute_instance" "vm-test1" {
   }
  
   metadata = {
-    user-data = "${file("./meta.yml")}"
+    user-data = "regina:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIBb3GHLLen70A0nwelg/oTdfw0P2bRGVAtMEwbhOBwQ"
   }
  
 }
