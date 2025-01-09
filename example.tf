@@ -81,14 +81,10 @@ packages:
   - openjdk-11-jdk
   - maven
   - yc
-runcmd:
+rruncmd:
   - git clone https://github.com/geoserver/geoserver.git /app
-  - echo "Git clone finished" >> /var/log/build.log
-  - cd /app/src
-  - mvn clean package -DskipTests >> /var/log/build.log 2>&1
-  - echo "Maven build finished" >> /var/log/build.log
-  - /bin/bash -c "yc storage object upload /app/src/web/app/target/geoserver.war --bucket java-app-repo --name geoserver.war" >> /var/log/build.log 2>&1
-  - echo "File uploaded to storage" >> /var/log/build.log
+  - cd /app/src && mvn clean package -DskipTests
+  - yc storage cp /app/src/web/app/target/geoserver.war ys://java-app-repo/geoserver.war
 EOF
   }
 }
@@ -133,13 +129,9 @@ packages:
   - tomcat9
   - yc
 runcmd:
-  - echo "Start downloading WAR file" >> /var/log/prod.log
-  - /bin/bash -c "yc storage cp ys://java-app-repo/geoserver.war /tmp/geoserver.war" >> /var/log/prod.log 2>&1
-  - echo "File downloaded" >> /var/log/prod.log
+  - yc storage cp ys://java-app-repo/geoserver.war /tmp/geoserver.war
   - cp /tmp/geoserver.war /var/lib/tomcat9/webapps/geoserver.war
-  - echo "WAR file copied to Tomcat" >> /var/log/prod.log
-  - systemctl restart tomcat9 >> /var/log/prod.log 2>&1 
-  - echo "Tomcat restarted" >> /var/log/prod.log
+  - systemctl restart tomcat9
 EOF
   }
 }
