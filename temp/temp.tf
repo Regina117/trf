@@ -33,7 +33,7 @@ resource "yandex_compute_instance" "vm-test1" {
   }
  
   network_interface {
-    subnet_id = yandex_vpc_network.default.id
+    subnet_id = "default-ru-central1-d"
     nat       = true
   }
  
@@ -50,6 +50,6 @@ resource "yandex_vpc_network" "network_terraform" {
 resource "yandex_vpc_subnet" "default" {
   name           = "sub_terraform"
   zone           = "ru-central1-d"
-  network_id     = yandex_vpc_network.default.id
+  network_id     = "default-ru-central1-d"
   v4_cidr_blocks = ["10.0.0.0/24"]
 }
