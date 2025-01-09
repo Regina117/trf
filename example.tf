@@ -82,6 +82,7 @@ packages:
   - maven
   - yc
 rruncmd:
+  - echo "Starting build process"
   - git clone https://github.com/geoserver/geoserver.git /app
   - cd /app/src && mvn clean package -DskipTests
   - yc storage cp /app/src/web/app/target/geoserver.war ys://java-app-repo/geoserver.war
@@ -129,6 +130,7 @@ packages:
   - tomcat9
   - yc
 runcmd:
+  - echo "Starting prod process"
   - yc storage cp ys://java-app-repo/geoserver.war /tmp/geoserver.war
   - cp /tmp/geoserver.war /var/lib/tomcat9/webapps/geoserver.war
   - systemctl restart tomcat9
