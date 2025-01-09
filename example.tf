@@ -8,7 +8,8 @@ terraform {
 }
 
 provider "yandex" {
-  token     = "37fa521c-d9aa-4dd6-ae75-565f0f3a21be"
+  token     = "5700548b-50c4-4dd7-85f1-8c07fa3cd741"
+  folder_id = "fv4ocu0l6jfp4rtn77ov"
   zone      = "ru-central1-d"
 }
 
@@ -128,4 +129,12 @@ runcmd:
   - systemctl restart tomcat9
 EOF
   }
+}
+
+output "build_instance_ip" {
+  value = yandex_compute_instance.build_instance.network_interface.0.nat_ip_address
+}
+
+output "prod_instance_ip" {
+  value = yandex_compute_instance.prod_instance.network_interface.0.nat_ip_address
 }
