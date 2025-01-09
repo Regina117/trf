@@ -9,7 +9,9 @@ terraform {
 
 provider "yandex" {
   token     = "y0__wgBENPV_IUCGMHdEyCis4b-EZr_VyNwznnybCcPlXNywg3E7sZf"
-  zone      = "ru-central1-d"
+  cloud-id  = "b1gmclt461srvopvr7i7"
+  folder-id = "b1g877q94b2773okudu0"
+  zone      = "ru-central1-c"
 }
 
 resource "yandex_vpc_network" "default" {
@@ -17,7 +19,7 @@ resource "yandex_vpc_network" "default" {
 }
 resource "yandex_vpc_subnet" "default" {
   name           = "default-subnet"
-  zone           = "ru-central1-d"
+  zone           = "ru-central1-c"
   network_id     = yandex_vpc_network.default.id
   v4_cidr_blocks = ["10.0.0.0/24"]
 }
@@ -36,10 +38,10 @@ resource "yandex_storage_bucket" "repo_bucket" {
 }
 
 # build instance
-resource "yandex_compute_instance" "build_instance" {
+resource "yandex_compute_instance" "new" {
   name        = "build-instance"
   platform_id = "standard-v1"
-  zone        = "ru-central1-d"
+  zone        = "ru-central1-c"
 
   resources {
     cores  = 2
@@ -85,10 +87,10 @@ EOF
 }
 
 # prod instance
-resource "yandex_compute_instance" "prod_instance" {
+resource "yandex_compute_instance" "new" {
   name        = "prod-instance"
   platform_id = "standard-v1"
-  zone        = "ru-central1-d"
+  zone        = "ru-central1-c"
 
   resources {
     cores  = 2
@@ -128,12 +130,4 @@ runcmd:
   - systemctl restart tomcat9
 EOF
   }
-}
-
-output "build_instance_ip" {
-  value = yandex_compute_instance.build_instance.network_interface.0.nat_ip_address
-}
-
-output "prod_instance_ip" {
-  value = yandex_compute_instance.prod_instance.network_interface.0.nat_ip_address
 }
